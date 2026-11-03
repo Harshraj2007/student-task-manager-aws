@@ -1,0 +1,33 @@
+# Compiled class files & build directories
+**/target/
+**/*.class
+**/*.jar
+**/*.war
+
+# Node & Frontend dependencies
+**/node_modules/
+**/dist/
+frontend/.env
+frontend/.env.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs & temp files
+*.log
+/tmp/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# AWS & Security keys
+*.pem
+*.key
+credentials
+.aws/
+.m2/
