@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>CSE2025 Project Report - Harshraj Santosh Nago (24BCA7664) - VIT-AP</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap');
 
     :root {
       --primary: #800000; /* VIT Maroon */
@@ -24,8 +24,8 @@
 
     body {
       font-family: 'Crimson Pro', 'Times New Roman', serif;
-      font-size: 11.5pt;
-      line-height: 1.6;
+      font-size: 11pt;
+      line-height: 1.5;
       color: var(--text);
       background-color: #f3f4f6;
       padding: 20px;
@@ -33,14 +33,19 @@
 
     .report-sheet {
       background: #ffffff;
-      max-width: 850px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 50px 60px;
+      padding: 40px 50px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       border: 1px solid #e5e7eb;
     }
 
     /* Print Setup */
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+    }
+
     @media print {
       body {
         background: #ffffff;
@@ -54,15 +59,24 @@
       }
       .page-break {
         page-break-before: always;
+        break-before: page;
       }
       .no-print {
         display: none !important;
+      }
+      .cover-page {
+        height: 260mm !important;
+        max-height: 260mm !important;
+        padding: 20px 24px !important;
+        margin: 0 0 0 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
       }
     }
 
     /* Print Action Bar */
     .print-bar {
-      max-width: 850px;
+      max-width: 820px;
       margin: 0 auto 15px auto;
       display: flex;
       justify-content: space-between;
@@ -92,172 +106,206 @@
       background: var(--primary-dark);
     }
 
-    /* Cover Page */
-    .cover-border {
+    /* ==========================================================
+       COVER PAGE — STRICTLY CONSTRAINED TO PAGE 1
+       ========================================================== */
+    .cover-page {
       border: 3px double var(--primary);
-      padding: 40px 30px;
+      padding: 25px 25px;
       text-align: center;
-      margin-bottom: 40px;
       background: #ffffff;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 980px;
+      height: 980px;
+      box-sizing: border-box;
+    }
+
+    .cover-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .vit-logo {
-      max-width: 260px;
-      height: auto;
-      margin-bottom: 15px;
+      height: 60px;
+      width: auto;
+      margin-bottom: 8px;
+      object-fit: contain;
     }
 
     .univ-name {
       font-family: 'Inter', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.1rem;
+      font-weight: 800;
       color: var(--primary);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
+      line-height: 1.2;
     }
 
     .dept-name {
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: #333333;
-      margin-top: 4px;
+      color: #374151;
+      margin-top: 3px;
       letter-spacing: 0.02em;
     }
 
     .cover-divider {
-      width: 70%;
-      height: 2px;
+      width: 80%;
+      height: 1.5px;
       background: linear-gradient(to right, transparent, var(--primary), transparent);
-      margin: 20px auto;
+      margin: 10px auto;
+    }
+
+    .cover-middle {
+      margin: 5px 0;
     }
 
     .report-tag {
       font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #4b5563;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-top: 15px;
     }
 
     .assessment-type {
       font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--primary);
-      margin-top: 5px;
+      margin-top: 2px;
     }
 
     .project-title {
       font-family: 'Inter', sans-serif;
-      font-size: 1.7rem;
+      font-size: 1.4rem;
       font-weight: 800;
       color: #111827;
-      line-height: 1.3;
-      margin: 25px 0 8px 0;
+      line-height: 1.25;
+      margin: 12px 0 4px 0;
       text-transform: uppercase;
     }
 
     .project-subtitle {
       font-style: italic;
-      font-size: 1.15rem;
+      font-size: 0.98rem;
       color: #4b5563;
-      margin-bottom: 25px;
+      margin-bottom: 10px;
     }
 
     .meta-table {
-      width: 90%;
-      margin: 20px auto;
+      width: 95%;
+      margin: 8px auto;
       border-collapse: collapse;
       text-align: left;
-      font-size: 11pt;
+      font-size: 9.8pt;
     }
 
     .meta-table td {
-      padding: 6px 12px;
-      vertical-align: top;
+      padding: 4px 10px;
+      vertical-align: middle;
+      border-bottom: 1px dashed #f1f5f9;
     }
 
     .meta-label {
-      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
       width: 38%;
-      color: #1f2937;
+      color: #374151;
     }
 
     .meta-value {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
       color: #111827;
     }
 
+    .meta-value strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .cover-footer {
+      margin-top: 5px;
+    }
+
     .live-url-box {
-      margin-top: 25px;
-      padding: 12px 18px;
+      padding: 8px 14px;
       background: #fdf2f2;
       border: 1px dashed var(--primary);
       border-radius: 6px;
       display: inline-block;
-      max-width: 95%;
+      max-width: 98%;
     }
 
     .live-url-box strong {
       display: block;
       color: var(--primary);
       font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .live-url-box a {
       color: #1d4ed8;
       font-family: 'Inter', monospace;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       word-break: break-all;
       text-decoration: underline;
     }
 
-    /* Headings & Content */
+    /* ==========================================================
+       BODY SECTIONS
+       ========================================================== */
     h2.section-heading {
       font-family: 'Inter', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--primary);
       border-bottom: 2px solid var(--primary);
       padding-bottom: 4px;
-      margin: 35px 0 15px 0;
+      margin: 30px 0 12px 0;
       text-transform: uppercase;
       letter-spacing: 0.02em;
     }
 
     h3.sub-heading {
       font-family: 'Inter', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 600;
       color: #1f2937;
-      margin: 20px 0 8px 0;
+      margin: 18px 0 6px 0;
     }
 
     p {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-align: justify;
     }
 
     ul, ol {
-      margin: 10px 0 15px 25px;
+      margin: 8px 0 12px 22px;
     }
 
     li {
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     /* Tables */
     table.content-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 15px 0 20px 0;
-      font-size: 10.5pt;
+      margin: 12px 0 18px 0;
+      font-size: 10pt;
     }
 
     table.content-table th {
@@ -266,12 +314,12 @@
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       text-align: left;
-      padding: 8px 12px;
+      padding: 7px 10px;
       border: 1px solid var(--primary);
     }
 
     table.content-table td {
-      padding: 7px 12px;
+      padding: 6px 10px;
       border: 1px solid var(--border);
       vertical-align: middle;
     }
@@ -282,14 +330,14 @@
 
     /* Image Figure Box */
     .figure-box {
-      margin: 22px auto;
+      margin: 18px auto;
       text-align: center;
       page-break-inside: avoid;
     }
 
     .figure-frame {
       display: inline-block;
-      padding: 5px;
+      padding: 4px;
       border: 1px solid #9ca3af;
       background: #ffffff;
       border-radius: 4px;
@@ -305,45 +353,45 @@
 
     .figure-caption {
       font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-style: italic;
       color: #4b5563;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
     /* Code & Architecture Block */
     pre.code-block {
       background: #111827;
       color: #f3f4f6;
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 6px;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 9.5pt;
-      line-height: 1.45;
+      font-size: 9pt;
+      line-height: 1.4;
       overflow-x: auto;
-      margin: 15px 0;
+      margin: 12px 0;
       border-left: 4px solid var(--primary);
     }
 
     pre.arch-diagram {
       background: #f8fafc;
       color: #1e293b;
-      padding: 16px;
+      padding: 14px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
       font-family: 'Courier New', monospace;
-      font-size: 9.5pt;
+      font-size: 9pt;
       line-height: 1.35;
-      margin: 15px 0;
+      margin: 12px 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Print Action Button (Hidden during Print) -->
+  <!-- Print Action Bar -->
   <div class="print-bar no-print">
     <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #4b5563;">
-      <strong>VIT-AP Project Report:</strong> Ready for evaluation. Click to print or save as PDF.
+      <strong>VIT-AP Project Report:</strong> Student details are strictly formatted on Page 1.
     </div>
     <button class="print-btn" onclick="window.print()">
       🖨️ Print / Save as PDF
@@ -352,23 +400,31 @@
 
   <div class="report-sheet">
 
-    <!-- COVER PAGE -->
-    <div class="cover-border">
-      <img src="./report_images/vit_logo.jpg" alt="VIT-AP University Logo" class="vit-logo">
+    <!-- ========================================================
+         PAGE 1: STRICT COVER PAGE WITH STUDENT DETAILS
+         ======================================================== -->
+    <div class="cover-page">
       
-      <div class="univ-name">VIT-AP University, Amaravati</div>
-      <div class="dept-name">School of Computer Science and Engineering</div>
+      <!-- Top: University Brand -->
+      <div class="cover-header">
+        <img src="./report_images/vit_logo.jpg" alt="VIT-AP University Logo" class="vit-logo">
+        <div class="univ-name">VIT-AP University, Amaravati</div>
+        <div class="dept-name">School of Computer Science and Engineering</div>
+      </div>
 
       <div class="cover-divider"></div>
 
-      <div class="report-tag">Academic Project Report</div>
-      <div class="assessment-type">Internal Assessment – III</div>
-
-      <div class="project-title">Student Task &amp; Assignment Manager</div>
-      <div class="project-subtitle">A Decoupled 3-Tier Academic Workflow System Deployed on AWS</div>
+      <!-- Middle: Project Title -->
+      <div class="cover-middle">
+        <div class="report-tag">Academic Project Report</div>
+        <div class="assessment-type">Internal Assessment – III</div>
+        <div class="project-title">Student Task &amp; Assignment Manager</div>
+        <div class="project-subtitle">A Decoupled 3-Tier Academic Workflow System Deployed on AWS</div>
+      </div>
 
       <div class="cover-divider"></div>
 
+      <!-- Student Details Table (Strictly on Page 1) -->
       <table class="meta-table">
         <tr>
           <td class="meta-label">Course Title:</td>
@@ -387,7 +443,7 @@
           <td class="meta-value"><strong>Prof. Thota Ramathulasi</strong></td>
         </tr>
         <tr>
-          <td class="meta-label">Submitted By:</td>
+          <td class="meta-label">Student Name:</td>
           <td class="meta-value"><strong>Harshraj Santosh Nago</strong></td>
         </tr>
         <tr>
@@ -400,15 +456,24 @@
         </tr>
       </table>
 
-      <div class="live-url-box">
-        <strong>🌐 Live Deployed Application URL (AWS S3)</strong>
-        <a href="http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/" target="_blank">
-          http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/
-        </a>
+      <!-- Bottom: Live URL -->
+      <div class="cover-footer">
+        <div class="live-url-box">
+          <strong>🌐 Live Deployed Application URL (AWS S3)</strong>
+          <a href="http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/" target="_blank">
+            http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/
+          </a>
+        </div>
       </div>
+
     </div>
 
+    <!-- PAGE BREAK TO PAGE 2 -->
     <div class="page-break"></div>
+
+    <!-- ========================================================
+         PAGE 2 ONWARD: REPORT CONTENT
+         ======================================================== -->
 
     <!-- 1. ABSTRACT -->
     <h2 class="section-heading">1. Abstract</h2>
