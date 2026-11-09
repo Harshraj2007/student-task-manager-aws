@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSE2025 Project Report - Harshraj Santosh Nago (24BCA7664) - VIT-AP</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary: #800000; /* VIT Maroon */
+      --primary-dark: #5c0000;
+      --text: #1a1a1a;
+      --text-muted: #555555;
+      --border: #d1d5db;
+      --border-dark: #374151;
+      --bg-light: #f9fafb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Crimson Pro', 'Times New Roman', serif;
+      font-size: 11.5pt;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: #f3f4f6;
+      padding: 20px;
+    }
+
+    .report-sheet {
+      background: #ffffff;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 50px 60px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e7eb;
+    }
+
+    /* Print Setup */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .report-sheet {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        padding: 0;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print Action Bar */
+    .print-bar {
+      max-width: 850px;
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+    }
+
+    .print-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .print-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Cover Page */
+    .cover-border {
+      border: 3px double var(--primary);
+      padding: 40px 30px;
+      text-align: center;
+      margin-bottom: 40px;
+      background: #ffffff;
+    }
+
+    .vit-logo {
+      max-width: 260px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    .univ-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .dept-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333333;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .cover-divider {
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+      margin: 20px auto;
+    }
+
+    .report-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #4b5563;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 15px;
+    }
+
+    .assessment-type {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 5px;
+    }
+
+    .project-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1.3;
+      margin: 25px 0 8px 0;
+      text-transform: uppercase;
+    }
+
+    .project-subtitle {
+      font-style: italic;
+      font-size: 1.15rem;
+      color: #4b5563;
+      margin-bottom: 25px;
+    }
+
+    .meta-table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 11pt;
+    }
+
+    .meta-table td {
+      padding: 6px 12px;
+      vertical-align: top;
+    }
+
+    .meta-label {
+      font-weight: 700;
+      width: 38%;
+      color: #1f2937;
+    }
+
+    .meta-value {
+      color: #111827;
+    }
+
+    .live-url-box {
+      margin-top: 25px;
+      padding: 12px 18px;
+      background: #fdf2f2;
+      border: 1px dashed var(--primary);
+      border-radius: 6px;
+      display: inline-block;
+      max-width: 95%;
+    }
+
+    .live-url-box strong {
+      display: block;
+      color: var(--primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .live-url-box a {
+      color: #1d4ed8;
+      font-family: 'Inter', monospace;
+      font-size: 0.88rem;
+      word-break: break-all;
+      text-decoration: underline;
+    }
+
+    /* Headings & Content */
+    h2.section-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 4px;
+      margin: 35px 0 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    h3.sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 20px 0 8px 0;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 10px 0 15px 25px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    /* Tables */
+    table.content-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0 20px 0;
+      font-size: 10.5pt;
+    }
+
+    table.content-table th {
+      background-color: var(--primary);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      text-align: left;
+      padding: 8px 12px;
+      border: 1px solid var(--primary);
+    }
+
+    table.content-table td {
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    table.content-table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+
+    /* Image Figure Box */
+    .figure-box {
+      margin: 22px auto;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .figure-frame {
+      display: inline-block;
+      padding: 5px;
+      border: 1px solid #9ca3af;
+      background: #ffffff;
+      border-radius: 4px;
+      max-width: 100%;
+    }
+
+    .figure-frame img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #e5e7eb;
+    }
+
+    .figure-caption {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #4b5563;
+      margin-top: 6px;
+    }
+
+    /* Code & Architecture Block */
+    pre.code-block {
+      background: #111827;
+      color: #f3f4f6;
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 9.5pt;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 15px 0;
+      border-left: 4px solid var(--primary);
+    }
+
+    pre.arch-diagram {
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 9.5pt;
+      line-height: 1.35;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Print Action Button (Hidden during Print) -->
+  <div class="print-bar no-print">
+    <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #4b5563;">
+      <strong>VIT-AP Project Report:</strong> Ready for evaluation. Click to print or save as PDF.
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+  </div>
+
+  <div class="report-sheet">
+
+    <!-- COVER PAGE -->
+    <div class="cover-border">
+      <img src="./report_images/vit_logo.jpg" alt="VIT-AP University Logo" class="vit-logo">
+      
+      <div class="univ-name">VIT-AP University, Amaravati</div>
+      <div class="dept-name">School of Computer Science and Engineering</div>
+
+      <div class="cover-divider"></div>
+
+      <div class="report-tag">Academic Project Report</div>
+      <div class="assessment-type">Internal Assessment – III</div>
+
+      <div class="project-title">Student Task &amp; Assignment Manager</div>
+      <div class="project-subtitle">A Decoupled 3-Tier Academic Workflow System Deployed on AWS</div>
+
+      <div class="cover-divider"></div>
+
+      <table class="meta-table">
+        <tr>
+          <td class="meta-label">Course Title:</td>
+          <td class="meta-value">Amazon Web Services</td>
+        </tr>
+        <tr>
+          <td class="meta-label">Course Code:</td>
+          <td class="meta-value">CSE2025</td>
+        </tr>
+        <tr>
+          <td class="meta-label">Slot:</td>
+          <td class="meta-value">A1 + TA1</td>
+        </tr>
+        <tr>
+          <td class="meta-label">Faculty Guide:</td>
+          <td class="meta-value"><strong>Prof. Thota Ramathulasi</strong></td>
+        </tr>
+        <tr>
+          <td class="meta-label">Submitted By:</td>
+          <td class="meta-value"><strong>Harshraj Santosh Nago</strong></td>
+        </tr>
+        <tr>
+          <td class="meta-label">Registration No:</td>
+          <td class="meta-value"><strong>24BCA7664</strong></td>
+        </tr>
+        <tr>
+          <td class="meta-label">Academic Year:</td>
+          <td class="meta-value">2026 – 2027</td>
+        </tr>
+      </table>
+
+      <div class="live-url-box">
+        <strong>🌐 Live Deployed Application URL (AWS S3)</strong>
+        <a href="http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/" target="_blank">
+          http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/
+        </a>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 1. ABSTRACT -->
+    <h2 class="section-heading">1. Abstract</h2>
+    <p>
+      In modern higher education institutions, undergraduate students manage coursework across multiple subjects simultaneously, often leading to scattered submission schedules, missed deadlines, and unorganized academic workloads. The <strong>Student Task &amp; Assignment Manager</strong> is an end-to-end cloud-native web application designed to centralize academic deadlines, track submission velocity, and provide priority-driven schedules.
+    </p>
+    <p>
+      To comply with industry-standard cloud engineering practices, the application is engineered following the <strong>AWS 3-Tier Decoupled Architecture</strong>:
+    </p>
+    <ul>
+      <li><strong>Presentation Tier:</strong> Built using React 18 and Vite, compiled into static single-page application (SPA) bundles and hosted serverless on <strong>Amazon S3</strong> with static website hosting.</li>
+      <li><strong>Application Tier:</strong> Developed in <strong>Java 17 and Spring Boot 3</strong>, deployed on an <strong>Amazon EC2 Ubuntu instance</strong>, and configured as an auto-restarting background service via a native Linux <code>systemd</code> daemon.</li>
+      <li><strong>Database Tier:</strong> Powered by <strong>Amazon RDS for PostgreSQL</strong> (<code>db.t4g.micro</code>), isolated via AWS Security Groups for secure relational persistence.</li>
+    </ul>
+    <p>
+      The complete project is publicly deployed, active 24/7 in the <code>ap-south-1</code> (Mumbai) region, and operates entirely within the <strong>AWS Free Tier</strong> threshold ($0.00 operational cost).
+    </p>
+
+    <!-- 2. PROBLEM STATEMENT & OBJECTIVES -->
+    <h2 class="section-heading">2. Problem Statement &amp; Objectives</h2>
+    <h3 class="sub-heading">2.1 Problem Statement</h3>
+    <p>
+      Students in engineering disciplines routinely handle 5 to 7 courses per semester, each with separate deadlines, lab rubrics, and submission channels. Without a unified system, students face:
+    </p>
+    <ol>
+      <li><strong>Missed Deadlines:</strong> Inadequate visibility into due dates results in academic penalties.</li>
+      <li><strong>Fragmented Communication:</strong> Instructions are lost in emails, chat groups, and portal announcements.</li>
+      <li><strong>Lack of Progress Metrics:</strong> Absence of visual progress indicators prevents timely workload prioritization.</li>
+    </ol>
+
+    <h3 class="sub-heading">2.2 Project Objectives</h3>
+    <ul>
+      <li><strong>Decoupled Architecture:</strong> Enforce strict physical and logical separation across static assets (S3), application compute (EC2), and relational storage (RDS).</li>
+      <li><strong>High Availability:</strong> Implement Linux system services to ensure the backend automatically recovers from instance restarts.</li>
+      <li><strong>Managed Cloud Persistence:</strong> Utilize Amazon RDS PostgreSQL to ensure ACID compliance and point-in-time recovery rather than unmanaged local storage.</li>
+      <li><strong>Zero-Cost Operational Sizing:</strong> Optimize all compute, storage, and networking configurations to remain within the AWS Free Tier.</li>
+    </ul>
+
+    <!-- 3. SYSTEM ARCHITECTURE -->
+    <h2 class="section-heading">3. System Architecture (3-Tier Cloud Model)</h2>
+    <p>
+      The system employs a 3-tier decoupled cloud topology. Static presentation delivery is separated from business logic processing and database persistence, preventing cascading failures and optimizing cloud resources:
+    </p>
+
+    <pre class="arch-diagram">
+[ User Web Browser ]
+         │
+         │ HTTP GET / Static Asset Delivery
+         ▼
+┌────────────────────────────────────────────────────────┐
+│  TIER 1: PRESENTATION LAYER (Amazon S3)                 │
+│  Bucket: student-task-manager-harshraj (ap-south-1)    │
+│  Static Website Hosting Enabled                        │
+│  Compiled React 18 + Vite SPA Assets                   │
+└────────────────────────┬───────────────────────────────┘
+                         │
+                         │ RESTful API Calls (JSON / Port 8080)
+                         ▼
+┌────────────────────────────────────────────────────────┐
+│  TIER 2: APPLICATION LAYER (Amazon EC2)                │
+│  Instance: studen-manager-backend (t3.micro, Ubuntu)   │
+│  Public IP: 65.0.6.148 | Spring Boot 3 REST API        │
+│  Auto-restart Daemon: systemd (student-manager.service)│
+└────────────────────────┬───────────────────────────────┘
+                         │
+                         │ JDBC Connection (Port 5432)
+                         ▼
+┌────────────────────────────────────────────────────────┐
+│  TIER 3: DATABASE LAYER (Amazon RDS)                   │
+│  Instance: student-manager-db (db.t4g.micro)           │
+│  Engine: PostgreSQL 16/18 | Database: student_manager   │
+│  Storage: 20 GiB gp2 SSD | AWS VPC Security Groups     │
+└────────────────────────────────────────────────────────┘
+    </pre>
+
+    <div class="page-break"></div>
+
+    <!-- 4. STORAGE & PRESENTATION TIER -->
+    <h2 class="section-heading">4. Storage &amp; Presentation Tier (Amazon S3)</h2>
+    <p>
+      The presentation layer is hosted on <strong>Amazon Simple Storage Service (S3)</strong> in the <code>ap-south-1</code> (Mumbai) region. S3 serves pre-compiled production HTML, JavaScript, and CSS bundles directly to client browsers without utilizing EC2 processing cycles.
+    </p>
+
+    <h3 class="sub-heading">4.1 S3 Bucket Asset Management</h3>
+    <p>
+      The bucket <code>student-task-manager-harshraj</code> holds the distribution output from <code>npm run build</code>, including <code>index.html</code> and the compiled <code>assets/</code> directory.
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_s3_objects.jpg" alt="Amazon S3 Bucket Objects">
+      </div>
+      <div class="figure-caption">Figure 4.1: Amazon S3 Bucket Objects (index.html and assets/ directory in ap-south-1).</div>
+    </div>
+
+    <h3 class="sub-heading">4.2 Static Website Hosting Configuration</h3>
+    <p>
+      Static website hosting was enabled on the bucket, routing both the index and error documents to <code>index.html</code> to facilitate client-side React routing.
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_s3_hosting.jpg" alt="S3 Static Website Hosting Enabled">
+      </div>
+      <div class="figure-caption">Figure 4.2: Amazon S3 Static Website Hosting Enabled with Live Bucket Endpoint.</div>
+    </div>
+
+    <h3 class="sub-heading">4.3 Public Access Bucket Policy</h3>
+    <p>
+      A public read policy was applied to grant read permissions (<code>s3:GetObject</code>) to anonymous web traffic while protecting write and bucket management actions:
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_s3_policy.png" alt="S3 Bucket Access Policy">
+      </div>
+      <div class="figure-caption">Figure 4.3: JSON Bucket Policy Granting Public Read Access to S3 Assets.</div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 5. APPLICATION & COMPUTE TIER -->
+    <h2 class="section-heading">5. Application &amp; Compute Tier (Amazon EC2)</h2>
+    <p>
+      The middle tier is responsible for handling REST API requests, data validation, business logic, and database transactions via Java 17 and Spring Boot 3.
+    </p>
+
+    <h3 class="sub-heading">5.1 Virtual Server Provisioning</h3>
+    <p>
+      An Amazon EC2 instance was launched with Ubuntu 24.04 LTS to serve as the application host:
+    </p>
+    <ul>
+      <li><strong>Instance Name:</strong> <code>studen-manager-backend</code></li>
+      <li><strong>Instance ID:</strong> <code>i-013eca07c52b74cc1</code></li>
+      <li><strong>Instance Type:</strong> <code>t3.micro</code> (2 vCPUs, 1.0 GiB RAM)</li>
+      <li><strong>Public IPv4 Address:</strong> <code>65.0.6.148</code></li>
+      <li><strong>Private IPv4 Address:</strong> <code>172.31.14.7</code></li>
+      <li><strong>Availability Zone:</strong> <code>ap-south-1b</code></li>
+    </ul>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_ec2_instance.jpg" alt="Amazon EC2 Instance Summary">
+      </div>
+      <div class="figure-caption">Figure 5.1: Amazon EC2 Instance Overview (studen-manager-backend, Public IP: 65.0.6.148).</div>
+    </div>
+
+    <h3 class="sub-heading">5.2 Security Group Firewall Rules</h3>
+    <p>
+      Inbound network traffic to the instance is governed by Security Group <code>launch-wizard-1</code> (<code>sg-050d7e75e205e642e</code>), configured with strict port allowances:
+    </p>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Port Range</th>
+          <th>Protocol</th>
+          <th>Source</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>22</strong></td>
+          <td>TCP</td>
+          <td>0.0.0.0/0</td>
+          <td>SSH Administration via key pair (student-key.pem)</td>
+        </tr>
+        <tr>
+          <td><strong>80</strong></td>
+          <td>TCP</td>
+          <td>0.0.0.0/0</td>
+          <td>HTTP Web Traffic</td>
+        </tr>
+        <tr>
+          <td><strong>8080</strong></td>
+          <td>TCP</td>
+          <td>0.0.0.0/0</td>
+          <td>Spring Boot REST API Service</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_ec2_security_groups.jpg" alt="EC2 Security Group Inbound Rules">
+      </div>
+      <div class="figure-caption">Figure 5.2: Inbound Firewall Security Group Rules on Amazon EC2 (Ports 22, 80, 8080).</div>
+    </div>
+
+    <h3 class="sub-heading">5.3 Service Daemonization via Linux systemd</h3>
+    <p>
+      To ensure the application remains permanently active and automatically reboots if the virtual server restarts, the backend is managed by <code>systemd</code> at <code>/etc/systemd/system/student-manager.service</code>:
+    </p>
+
+    <pre class="code-block">
+[Unit]
+Description=Student Task &amp; Assignment Manager Backend
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu
+ExecStart=/usr/bin/java -jar /home/ubuntu/app.jar --spring.profiles.active=prod
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+    </pre>
+
+    <div class="page-break"></div>
+
+    <!-- 6. DATABASE TIER -->
+    <h2 class="section-heading">6. Database &amp; Persistence Tier (Amazon RDS)</h2>
+    <p>
+      The persistence tier utilizes <strong>Amazon Relational Database Service (RDS)</strong> for PostgreSQL. Decoupling storage from EC2 prevents data loss during instance termination and provides managed snapshot capabilities.
+    </p>
+
+    <h3 class="sub-heading">6.1 Managed Database Specifications</h3>
+    <ul>
+      <li><strong>DB Identifier:</strong> <code>student-manager-db</code></li>
+      <li><strong>Engine:</strong> PostgreSQL (Version 18.3 / PostgreSQL License)</li>
+      <li><strong>Instance Class:</strong> <code>db.t4g.micro</code> (AWS Graviton2 Processor)</li>
+      <li><strong>Status:</strong> <code>Available</code></li>
+      <li><strong>Assigned AZ:</strong> <code>ap-south-1c</code></li>
+      <li><strong>Database Endpoint:</strong> <code>student-manager-db.ct8my864ardl.ap-south-1.rds.amazonaws.com</code></li>
+      <li><strong>Port:</strong> <code>5432</code></li>
+    </ul>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_rds_status.jpg" alt="Amazon RDS PostgreSQL Status">
+      </div>
+      <div class="figure-caption">Figure 6.1: Amazon RDS PostgreSQL Instance Details and Available Status.</div>
+    </div>
+
+    <h3 class="sub-heading">6.2 Storage and Encryption Parameters</h3>
+    <p>
+      The database instance is provisioned with 20 GiB of General Purpose SSD (<code>gp2</code>) storage with AWS KMS encryption enabled:
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_rds_config.jpg" alt="Amazon RDS Storage Configuration">
+      </div>
+      <div class="figure-caption">Figure 6.2: Amazon RDS Storage Parameters (20 GiB gp2, Database Name: student_manager).</div>
+    </div>
+
+    <h3 class="sub-heading">6.3 Relational Schema Definition</h3>
+    <p>
+      The core relational entity is defined in PostgreSQL under the <code>assignments</code> table:
+    </p>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Column</th>
+          <th>Type</th>
+          <th>Constraints</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>BIGINT</td>
+          <td>PRIMARY KEY, AUTO_INCREMENT</td>
+          <td>Unique record identifier</td>
+        </tr>
+        <tr>
+          <td><code>title</code></td>
+          <td>VARCHAR(255)</td>
+          <td>NOT NULL</td>
+          <td>Assignment title</td>
+        </tr>
+        <tr>
+          <td><code>subject</code></td>
+          <td>VARCHAR(100)</td>
+          <td>NOT NULL</td>
+          <td>Course or subject name</td>
+        </tr>
+        <tr>
+          <td><code>description</code></td>
+          <td>TEXT</td>
+          <td>NULLABLE</td>
+          <td>Instructions, notes, and rubric details</td>
+        </tr>
+        <tr>
+          <td><code>due_date</code></td>
+          <td>DATE</td>
+          <td>NULLABLE</td>
+          <td>Target completion deadline</td>
+        </tr>
+        <tr>
+          <td><code>priority</code></td>
+          <td>VARCHAR(20)</td>
+          <td>NOT NULL, DEFAULT 'MEDIUM'</td>
+          <td>LOW, MEDIUM, HIGH</td>
+        </tr>
+        <tr>
+          <td><code>status</code></td>
+          <td>VARCHAR(20)</td>
+          <td>NOT NULL, DEFAULT 'PENDING'</td>
+          <td>PENDING, IN_PROGRESS, COMPLETED</td>
+        </tr>
+        <tr>
+          <td><code>created_at</code></td>
+          <td>TIMESTAMP</td>
+          <td>NOT NULL</td>
+          <td>System creation timestamp</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- 7. FULL-STACK IMPLEMENTATION & TESTING -->
+    <h2 class="section-heading">7. Implementation &amp; Live Deployment Verification</h2>
+
+    <h3 class="sub-heading">7.1 Live Web Application Dashboard</h3>
+    <p>
+      The user interface provides real-time academic workload metrics and an interactive Kanban board:
+    </p>
+    <ul>
+      <li><strong>AWS API Health Pill:</strong> Displays a live pulsing indicator confirming continuous connectivity between S3 and the EC2 API.</li>
+      <li><strong>Semester Velocity Progress Bar:</strong> Dynamically recalculates the overall percentage of completed tasks.</li>
+      <li><strong>Overdue Alert Banner:</strong> Automatically warns students of tasks past their target submission date.</li>
+      <li><strong>Kanban Status Workflow:</strong> One-click status transitions (<code>Start ➔</code>, <code>Done ✓</code>, <code>Reopen ⮌</code>) update PostgreSQL in real-time.</li>
+    </ul>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_live_app.jpg" alt="Live Kanban Dashboard on AWS">
+      </div>
+      <div class="figure-caption">Figure 7.1: Live Application Dashboard with Kanban Workflow and Completion Velocity Meter.</div>
+    </div>
+
+    <h3 class="sub-heading">7.2 Dynamic Task Creation Interface</h3>
+    <p>
+      The creation modal includes course quick-select pills and preset due-date calculators that synchronize with Amazon RDS via HTTP POST requests:
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_task_modal.jpg" alt="Task Creation Interface">
+      </div>
+      <div class="figure-caption">Figure 7.2: Assignment Creation Modal with Real-Time Persistence into Amazon RDS.</div>
+    </div>
+
+    <h3 class="sub-heading">7.3 Backend REST API Health Verification</h3>
+    <p>
+      Independent verification of the application tier was conducted via HTTP GET requests to <code>/api/health</code> on the EC2 host:
+    </p>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_api_health.png" alt="Backend REST API Verification">
+      </div>
+      <div class="figure-caption">Figure 7.3: Backend REST API Health Check Response from EC2 (65.0.6.148:8080/api/health).</div>
+    </div>
+
+    <pre class="code-block">
+{
+  "timestamp": "2026-11-09T09:57:24.627402369",
+  "service": "Student Task &amp; Assignment Manager API",
+  "environment": "Cloud/AWS Ready",
+  "status": "UP"
+}
+    </pre>
+
+    <h3 class="sub-heading">7.4 GitHub Version Control &amp; Repository Deliverable</h3>
+    <p>
+      All source code, configuration files, and build scripts are version-controlled and hosted on GitHub:
+    </p>
+    <ul>
+      <li><strong>Repository URL:</strong> <a href="https://github.com/Harshraj2007/student-task-manager-aws" target="_blank">https://github.com/Harshraj2007/student-task-manager-aws</a></li>
+    </ul>
+
+    <div class="figure-box">
+      <div class="figure-frame">
+        <img src="./report_images/fig_github_repo.jpg" alt="GitHub Repository Overview">
+      </div>
+      <div class="figure-caption">Figure 7.4: Public GitHub Repository Containing Project Source Code and Documentation.</div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 8. COST ANALYSIS -->
+    <h2 class="section-heading">8. AWS Cost &amp; Free Tier Analysis</h2>
+    <p>
+      To ensure financial sustainability, all provisioned resources strictly adhere to the <strong>AWS 12-Month Free Tier</strong> guidelines:
+    </p>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>AWS Service</th>
+          <th>Allocated Resource</th>
+          <th>Monthly Free Tier Allowance</th>
+          <th>Actual Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Amazon EC2</strong></td>
+          <td>1 × <code>t3.micro</code> Instance (Ubuntu 24.04)</td>
+          <td>750 Hours / Month</td>
+          <td><strong>$0.00</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Amazon RDS</strong></td>
+          <td>1 × <code>db.t4g.micro</code> PostgreSQL Instance</td>
+          <td>750 Hours / Month</td>
+          <td><strong>$0.00</strong></td>
+        </tr>
+        <tr>
+          <td><strong>RDS Storage</strong></td>
+          <td>20 GiB General Purpose SSD (gp2)</td>
+          <td>20 GiB / Month</td>
+          <td><strong>$0.00</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Amazon S3</strong></td>
+          <td>Static Assets (~1.2 MB)</td>
+          <td>5.0 GB Standard Storage</td>
+          <td><strong>$0.00</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Data Transfer</strong></td>
+          <td>Outbound REST API &amp; Web Responses</td>
+          <td>15 GB Outbound / Month</td>
+          <td><strong>$0.00</strong></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align: right; font-weight: 700;">TOTAL MONTHLY EXPENDITURE:</td>
+          <td style="color: #047857; font-weight: 700;"><strong>$0.00 (₹0.00)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 9. CONCLUSION -->
+    <h2 class="section-heading">9. Conclusion &amp; Deliverables</h2>
+    <p>
+      The <strong>Student Task &amp; Assignment Manager</strong> project successfully implements a modern full-stack web application hosted on an enterprise 3-tier AWS architecture for <strong>CSE2025: Amazon Web Services</strong>:
+    </p>
+    <ul>
+      <li><strong>Decoupled Presentation Tier:</strong> S3 serverless static hosting eliminates web serving overhead on compute nodes.</li>
+      <li><strong>Resilient Compute Tier:</strong> Spring Boot 3 running on EC2 is reinforced with Linux <code>systemd</code> service auto-restart daemons.</li>
+      <li><strong>Managed Relational Persistence:</strong> Amazon RDS PostgreSQL guarantees data integrity and high availability with automated backups.</li>
+      <li><strong>Cost-Effective Engineering:</strong> The solution provides full production capability while maintaining zero infrastructure cost.</li>
+    </ul>
+
+    <table class="content-table" style="margin-top: 25px;">
+      <thead>
+        <tr>
+          <th>Project Deliverable</th>
+          <th>Access Link / Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Live Web Application</strong></td>
+          <td><a href="http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/" target="_blank">http://student-task-manager-harshraj.s3-website.ap-south-1.amazonaws.com/</a></td>
+        </tr>
+        <tr>
+          <td><strong>Backend API Health Check</strong></td>
+          <td><a href="http://65.0.6.148:8080/api/health" target="_blank">http://65.0.6.148:8080/api/health</a></td>
+        </tr>
+        <tr>
+          <td><strong>Source Code (GitHub)</strong></td>
+          <td><a href="https://github.com/Harshraj2007/student-task-manager-aws" target="_blank">https://github.com/Harshraj2007/student-task-manager-aws</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+</html>
